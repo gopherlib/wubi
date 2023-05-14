@@ -29,7 +29,7 @@ func TestGetCode_WuBi86(t *testing.T) {
 		},
 	}
 
-	c := NewConvertOf86()
+	c := New86()
 	for _, v := range testTable {
 		codes := c.GetCode(v.char)
 		require.Equal(t, v.codes, codes)
@@ -59,7 +59,7 @@ func TestGetCode_WuBi86_Code2Chars(t *testing.T) {
 		},
 	}
 
-	c := NewConvertOf86()
+	c := New86()
 	for _, v := range testTable {
 		chars := c.GetChar(v.code)
 		require.Equal(t, v.chars, chars)
@@ -84,7 +84,7 @@ func TestGetCode_WuBi86_Codes2Chars(t *testing.T) {
 		},
 	}
 
-	c := NewConvertOf86()
+	c := New86()
 	for _, v := range testTable {
 		chars := c.GetChars(v.code)
 		require.Equal(t, v.chars, chars)
@@ -108,7 +108,7 @@ func TestGetCodes_WuBi86(t *testing.T) {
 		},
 	}
 
-	c := NewConvertOf86()
+	c := New86()
 	for _, v := range testTable {
 		codes := c.GetCodes(v.chars)
 		require.Equal(t, v.codes, codes)
@@ -138,7 +138,7 @@ func TestGetCode_WuBi98(t *testing.T) {
 		},
 	}
 
-	c := NewConvertOf98()
+	c := New98()
 	for _, v := range testTable {
 		codes := c.GetCode(v.char)
 		require.Equal(t, v.codes, codes)
@@ -146,14 +146,14 @@ func TestGetCode_WuBi98(t *testing.T) {
 }
 
 func BenchmarkWubi86Char2Codes(b *testing.B) {
-	c := NewConvertOf86()
+	c := New86()
 	for i := 0; i < b.N; i++ {
 		_ = c.GetCode('一')
 	}
 }
 
 func BenchmarkWubi86Chars2Codes(b *testing.B) {
-	c := NewConvertOf86()
+	c := New86()
 	for i := 0; i < b.N; i++ {
 		_ = c.GetCodes("干一行")
 	}

@@ -12,7 +12,7 @@ import "github.com/gopherlib/wubi"
 
 ## 86版汉字转五笔码
 ```go
-c := wubi.NewConvertOf86()
+c := wubi.New86()
 codes := c.GetCode('在')
 fmt.Println(codes) 
 
@@ -21,7 +21,7 @@ fmt.Println(codes)
 
 ## 86版多个汉字转五笔码
 ```go
-c := wubi.NewConvertOf86()
+c := wubi.New86()
 codes := c.GetCodes("干一行，爱一行，一行行，行行行，一行不行，行行不行")
 fmt.Println(codes) 
 
@@ -31,7 +31,7 @@ fmt.Println(codes)
 ## 86版五笔码转汉字
 
 ```go
-c := wubi.NewConvertOf86()
+c := wubi.New86()
 chars := c.GetChar("d")
 fmt.Println(chars) 
 
@@ -41,7 +41,7 @@ fmt.Println(chars)
 ## 86版多个五笔码转汉字
 
 ```go
-c := wubi.NewConvertOf86()
+c := wubi.New86()
 chars := c.GetChars([]string{"d", "r"})
 fmt.Println(chars) 
 

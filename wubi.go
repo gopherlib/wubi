@@ -34,34 +34,34 @@ func RegisterVersion(ver Version, dict Dictionary) {
 	dictList[ver] = dict
 }
 
-// NewConvertOf86 86版
-func NewConvertOf86() *Convert {
-	return &Convert{
+// New86 86版
+func New86() *Wubi {
+	return &Wubi{
 		dictChar2Code: dict.Dict86,
 		dictCode2Char: reverseDict(dict.Dict86),
 	}
 }
 
-// NewConvertOf98 98版
-func NewConvertOf98() *Convert {
-	return &Convert{
+// New98 98版
+func New98() *Wubi {
+	return &Wubi{
 		dictChar2Code: dict.Dict98,
 		dictCode2Char: reverseDict(dict.Dict98),
 	}
 }
 
-// NewConvertOf06 新世纪版
-func NewConvertOf06() *Convert {
-	return &Convert{
+// New06 新世纪版
+func New06() *Wubi {
+	return &Wubi{
 		dictChar2Code: dict.Dict06,
 		dictCode2Char: reverseDict(dict.Dict06),
 	}
 }
 
-// NewConvert 创建一个转换器实例
-func NewConvert(ver Version) (*Convert, error) {
+// New 创建一个转换器实例
+func New(ver Version) (*Wubi, error) {
 	if d, ok := dictList[ver]; ok {
-		return &Convert{
+		return &Wubi{
 			dictChar2Code: d,
 			dictCode2Char: reverseDict(d),
 		}, nil
@@ -70,22 +70,22 @@ func NewConvert(ver Version) (*Convert, error) {
 	return nil, errors.New("invalid version")
 }
 
-// NewConvertWithDict 使用自定义码表创建转换器实例
-func NewConvertWithDict(d Dictionary) *Convert {
-	return &Convert{
+// NenWithDict 使用自定义码表创建转换器实例
+func NenWithDict(d Dictionary) *Wubi {
+	return &Wubi{
 		dictChar2Code: d,
 		dictCode2Char: reverseDict(d),
 	}
 }
 
-// Convert 五笔码转换器
-type Convert struct {
+// Wubi 五笔码转换器
+type Wubi struct {
 	dictChar2Code Dictionary
 	dictCode2Char Dictionary
 }
 
 // GetCode 获取单字的五笔码
-func (c Convert) GetCode(char rune) []string {
+func (c Wubi) GetCode(char rune) []string {
 	if code, ok := c.dictChar2Code[string(char)]; ok {
 		codes := strings.Split(code, ",")
 		c.sort(codes)
@@ -96,7 +96,7 @@ func (c Convert) GetCode(char rune) []string {
 }
 
 // GetCodes 获取字符串的五笔码列表
-func (c Convert) GetCodes(chars string) [][]string {
+func (c Wubi) GetCodes(chars string) [][]string {
 	codes := make([][]string, 0, len(chars))
 	for _, r := range []rune(chars) {
 		code := c.GetCode(r)
@@ -115,7 +115,7 @@ func (c Convert) GetCodes(chars string) [][]string {
 }
 
 // GetChar 获取单个五笔码对应的汉字
-func (c Convert) GetChar(code string) []string {
+func (c Wubi) GetChar(code string) []string {
 	if char, ok := c.dictCode2Char[code]; ok {
 		chars := strings.Split(char, ",")
 		sort.Sort(sort.StringSlice(chars))
@@ -126,7 +126,7 @@ func (c Convert) GetChar(code string) []string {
 }
 
 // GetChars 获取五笔码列表对应的汉字
-func (c Convert) GetChars(codes []string) [][]string {
+func (c Wubi) GetChars(codes []string) [][]string {
 	chars := make([][]string, 0, len(codes))
 	for _, code := range codes {
 		cs := c.GetChar(code)
@@ -143,7 +143,7 @@ func (c Convert) GetChars(codes []string) [][]string {
 	return chars
 }
 
-func (c Convert) sort(codes []string) {
+func (c Wubi) sort(codes []string) {
 	sort.Sort(codeSlice(codes))
 }
 
